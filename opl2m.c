@@ -76,5 +76,7 @@ main(int argc, char **argv)
 	}
 	if(n < 0)
 		sysfatal("read: %r");
+	close(pfd[1]);
+	waitpid();
 	exits(nil);
 }
