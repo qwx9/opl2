@@ -4,8 +4,8 @@ opl2 \- OPL2 chip emulator
 .SH SYNOPSIS
 .B opl2
 [
-.B -n
-.I rate
+.B -r
+.I input rate
 ] [
 .I file
 ]
@@ -17,10 +17,12 @@ is an emulator of a single Yamaha 3812 chip, also known as
 The emulated chip is programmed by a stream of commands either from
 .I file
 or from standard in.
-Guided by these commands, it then synthesizes a number of 16 bit little-endian samples for a sampling rate of 44.1 kHz.
+Guided by these commands, it then synthesizes a number of 16 bit little-endian samples for
+the chip's output sampling rate, 49.716 kHz.
 Each is duplicated for stereo sound and written to standard out.
 .PP
-Commands are 4 bytes formatted as follows, where the size of each field is given in bytes between brackets:
+Commands are 4 bytes formatted as follows,
+where the size of each field is given in bytes between brackets:
 .PP
 .RS
 .IR register [1]
@@ -43,37 +45,43 @@ and provides timing.
 It is a multiple of a command period, during which the
 .SM OPL2
 chip may be sampled before processing the next command.
-The period itself is the inverse of the command rate, 700 Hz by default.
-This rate can be set using the
-.B -n
-parameter.
+The period itself is the inverse of the input stream's sampling rate,
+by default the same as the chip's output sampling rate.
+The
+.B -r
+parameter
+sets the input sampling rate.
 .SH EXAMPLES
 Use with Wolfenstein 3D IMF files (default rate):
 .IP
 .EX
-% opl2 -n 700 <imf >/dev/audio
+% opl2 -r 700 <imf >/dev/audio
 .EE
 .PP
 Use with Commander Keen IMF files:
 .IP
 .EX
-% opl2 -n 560 <imf >/dev/audio
+% opl2 -r 560 <imf >/dev/audio
 .EE
 .PP
 Use with Wolfenstein 3D adlib sound effects:
 .IP
 .EX
-% opl2 -n 140 <al >/dev/audio
+% opl2 -r 140 <al >/dev/audio
 .EE
 .PP
 Use with Ultima 6 M files:
 .IP
 .EX
-% opl2 -n 60 <mfile >/dev/audio
+% opl2 -r 60 <mfile >/dev/audio
 .EE
 .SH "SEE ALSO"
 .IR wl3d (1) ,
 .IR audio (3)
+.PP
+Yamaha
+``YM3812 Application Manual'',
+1994.
 .SH HISTORY
 .I Opl2
 first appeared in 9front (May, 2016), based on
