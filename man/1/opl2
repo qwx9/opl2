@@ -47,6 +47,30 @@ The period itself is the inverse of the command rate, 700 Hz by default.
 This rate can be set using the
 .B -n
 parameter.
+.SH EXAMPLES
+Use with Wolfenstein 3D IMF files (default rate):
+.IP
+.EX
+% opl2 -n 700 <imf >/dev/audio
+.EE
+.PP
+Use with Commander Keen IMF files:
+.IP
+.EX
+% opl2 -n 560 <imf >/dev/audio
+.EE
+.PP
+Use with Wolfenstein 3D adlib sound effects:
+.IP
+.EX
+% opl2 -n 140 <al >/dev/audio
+.EE
+.PP
+Use with Ultima 6 M files:
+.IP
+.EX
+% opl2 -n 60 <mfile >/dev/audio
+.EE
 .SH "SEE ALSO"
 .IR wl3d (1) ,
 .IR audio (3)
