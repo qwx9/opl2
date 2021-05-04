@@ -17,12 +17,14 @@ is an emulator of a single Yamaha 3812 chip, also known as
 The emulated chip is programmed by a stream of commands either from
 .I file
 or from standard in.
-Guided by these commands, it then synthesizes a number of 16 bit little-endian samples for
-the chip's output sampling rate, 49.716 kHz.
-Each is duplicated for stereo sound and written to standard out.
+It then synthesizes stereo 16-bit little-endian PCM samples
+at the chip's sampling rate, 49.716 kHz,
+resamples them to
+.IR audio (3)'s
+default 44.1 kHz rate,
+and writes them to standard out.
 .PP
-Commands are 4 bytes formatted as follows,
-where the size of each field is given in bytes between brackets:
+Commands are 4 bytes wide, in little-endian byte order:
 .PP
 .RS
 .IR register [1]
@@ -40,8 +42,7 @@ modifying its internal state.
 .PP
 The
 .I delay
-field is stored as a 16-bit unsigned integer in little-endian byte order,
-and provides timing.
+field provides timing.
 It is a multiple of a command period, during which the
 .SM OPL2
 chip may be sampled before processing the next command.
